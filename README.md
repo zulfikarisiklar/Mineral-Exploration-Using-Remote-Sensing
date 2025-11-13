@@ -43,6 +43,15 @@ Each alteration type is detected separately with multiple sub-type discriminatio
    - Actinolite
    - Inner vs outer propylitic zones
 
+5. **Potassic Alteration** ⭐ NEW!
+   - Biotite (dark mica)
+   - K-feldspar (orthoclase, microcline)
+   - Secondary magnetite
+   - Early potassic (core zone)
+   - Late potassic alteration
+   - Porphyry core detection
+   - Potassic-phyllic transition
+
 ### Mineral-Specific Detection
 
 1. **Hydroxyl (OH) Bearing Minerals**
@@ -60,15 +69,34 @@ Each alteration type is detected separately with multiple sub-type discriminatio
    - Calcite-dolomite discrimination
    - Marble detection
 
+3. **Silica (SiO₂) Mineralization** ⭐ NEW!
+   - Quartz (hydrothermal veins)
+   - Silicification zones
+   - Silica caps (epithermal systems)
+   - Opaline silica (hot springs)
+   - Chalcedonic silica
+   - Quartz vein detection (textural analysis)
+   - Thermal infrared (TIR) silica detection
+
+4. **Sulfate Minerals** ⭐ NEW!
+   - Gypsum (CaSO₄·2H₂O)
+   - Jarosite (KFe₃(SO₄)₂(OH)₆) - acid sulfate
+   - Alunite (KAl₃(SO₄)₂(OH)₆) - advanced argillic
+   - Anhydrite (CaSO₄)
+   - Acid sulfate alteration zones
+   - Supergene sulfates (oxidation)
+   - Epithermal sulfate assemblages
+
 ## Downloading Satellite Imagery
 
 **NEW!** This toolkit now includes automatic satellite image download from **Google Earth Engine** using geemap!
 
 ### Supported Data Sources
-- **Landsat-8** (OLI/TIRS) - 30m resolution, excellent SWIR bands
-- **Landsat-7** (ETM+) - 30m resolution, historical data
-- **Sentinel-2** (MSI) - 10m resolution, frequent revisit
-- **ASTER** - Superior SWIR bands for clay minerals (note: SWIR stopped in 2008)
+- **Landsat-8** (OLI/TIRS) - 30m resolution, excellent SWIR bands (2013-present)
+- **Landsat-7** (ETM+) - 30m resolution (1999-present)
+- **Landsat-5** (TM) ⭐ NEW! - 30m resolution, historical data (1984-2013)
+- **Sentinel-2** (MSI) - 10m resolution, frequent revisit (2015-present)
+- **ASTER** - Superior SWIR bands for clay minerals (2000-present, SWIR stopped 2008)
 
 ### Quick Start - Download Imagery
 
@@ -307,6 +335,7 @@ The `examples/` directory contains detailed example scripts:
 7. **example3_clay_alteration.py** - Argillic and phyllic discrimination
 8. **example4_porphyry_system.py** - Porphyry copper zonation mapping
 9. **example5_mineral_mapping.py** - Detailed hydroxyl and carbonate mineral mapping
+10. **example6_advanced_mineral_detection.py** ⭐ NEW! - Silica, potassic, and sulfate minerals
 
 Run examples:
 ```bash

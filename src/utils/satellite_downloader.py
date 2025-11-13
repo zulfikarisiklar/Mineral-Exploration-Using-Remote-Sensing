@@ -16,10 +16,11 @@ class SatelliteDownloader:
     Download satellite imagery from Google Earth Engine
 
     Supports:
-    - Landsat 8 (OLI/TIRS)
-    - Landsat 7 (ETM+)
-    - Sentinel-2 (MSI)
-    - ASTER
+    - Landsat 8 (OLI/TIRS) - 2013-present
+    - Landsat 7 (ETM+) - 1999-present
+    - Landsat 5 (TM) - 1984-2013 (historical)
+    - Sentinel-2 (MSI) - 2015-present
+    - ASTER - 2000-present
     """
 
     def __init__(self):
@@ -178,6 +179,65 @@ class SatelliteDownloader:
         output_path = Path(output_path)
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
+        geemap.ee_export_image(
+            image,
+            filename=str(output_path),
+            scale=scale,
+            region=aoi,
+            file_per_band=False
+        )
+
+        print(f"Download complete: {output_path}")
+        return str(output_path)
+
+    def download_landsat5(self,
+                         aoi: ee.Geometry,
+                         start_date: str,
+                         end_date: str,
+                         output_path: str,
+                         cloud_cover_max: int = 20,
+                         scale: int = 30) -> str:
+        """
+        Download Landsat-5 TM imagery (historical data 1984-2013)
+
+        Args:
+            aoi: Area of Interest
+            start_date: Start date (YYYY-MM-DD)
+            end_date: End date (YYYY-MM-DD)
+            output_path: Output file path
+            cloud_cover_max: Maximum cloud cover percentage
+            scale: Resolution in meters
+
+        Returns:
+            Path to downloaded file
+        """
+        print(f"Downloading Landsat-5 TM imagery...")
+        print(f"Date range: {start_date} to {end_date}")
+        print(f"Note: Landsat-5 operated 1984-2013")
+
+        # Load Landsat 5 Collection 2 Tier 1 TOA
+        collection = (ee.ImageCollection('LANDSAT/LT05/C02/T1_TOA')
+                     .filterBounds(aoi)
+                     .filterDate(start_date, end_date)
+                     .filter(ee.Filter.lt('CLOUD_COVER', cloud_cover_max))
+                     .sort('CLOUD_COVER'))
+
+        count = collection.size().getInfo()
+        print(f"Found {count} images")
+
+        if count == 0:
+            raise ValueError("No images found for specified date range")
+
+        image = collection.median() if count > 1 else collection.first()
+
+        # Landsat 5 TM bands: B1-B5, B7 (no B6 thermal in TOA, no B8 pan)
+        bands = ['B1', 'B2', 'B3', 'B4', 'B5', 'B7']
+        image = image.select(bands).clip(aoi)
+
+        output_path = Path(output_path)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+
+        print(f"Downloading to {output_path}...")
         geemap.ee_export_image(
             image,
             filename=str(output_path),
