@@ -60,6 +60,75 @@ Each alteration type is detected separately with multiple sub-type discriminatio
    - Calcite-dolomite discrimination
    - Marble detection
 
+## Downloading Satellite Imagery
+
+**NEW!** This toolkit now includes automatic satellite image download from **Google Earth Engine** using geemap!
+
+### Supported Data Sources
+- **Landsat-8** (OLI/TIRS) - 30m resolution, excellent SWIR bands
+- **Landsat-7** (ETM+) - 30m resolution, historical data
+- **Sentinel-2** (MSI) - 10m resolution, frequent revisit
+- **ASTER** - Superior SWIR bands for clay minerals (note: SWIR stopped in 2008)
+
+### Quick Start - Download Imagery
+
+1. **Authenticate with Google Earth Engine:**
+```bash
+earthengine authenticate
+```
+Follow the browser authentication flow.
+
+2. **Download imagery for your area:**
+```python
+from utils.satellite_downloader import SatelliteDownloader
+
+downloader = SatelliteDownloader()
+
+# Define area of interest
+aoi = downloader.set_aoi_from_coordinates(
+    min_lon=-70.0, min_lat=-30.0,
+    max_lon=-69.8, max_lat=-29.8
+)
+
+# Download Landsat-8
+downloader.download_landsat8(
+    aoi=aoi,
+    start_date='2023-01-01',
+    end_date='2023-12-31',
+    output_path='data/my_area.tif',
+    cloud_cover_max=15
+)
+```
+
+3. **Or use the complete exploration suite:**
+```python
+from utils.satellite_downloader import MineralExplorationDownloader
+
+downloader = MineralExplorationDownloader()
+
+# Downloads Landsat-8, ASTER, and Sentinel-2 automatically
+paths = downloader.download_porphyry_exploration_suite(
+    aoi=aoi,
+    start_date='2023-01-01',
+    end_date='2023-12-31',
+    output_dir='data/my_prospect'
+)
+```
+
+### Download Examples
+See the `examples/` directory for detailed download scripts:
+- `download_landsat8.py` - Landsat-8 download examples
+- `download_aster.py` - ASTER download for clay minerals
+- `download_sentinel2.py` - High-resolution Sentinel-2
+- `download_and_analyze_porphyry.py` - Complete workflow (download → analyze → report)
+
+### Earth Engine Benefits
+- ✓ Automatic cloud filtering
+- ✓ Temporal compositing (median, mean)
+- ✓ On-the-fly preprocessing
+- ✓ Access to massive archive (1970s to present)
+- ✓ No manual USGS downloads needed!
+
 ## Installation
 
 ### Requirements
@@ -68,11 +137,31 @@ Each alteration type is detected separately with multiple sub-type discriminatio
 - NumPy, SciPy for numerical computing
 - scikit-learn for machine learning
 - Matplotlib, Seaborn for visualization
+- **Google Earth Engine API** and **geemap** for satellite image download
 
 ### Install Dependencies
 
 ```bash
 pip install -r requirements.txt
+```
+
+### Earth Engine Setup (for downloading imagery)
+
+1. **Sign up for Google Earth Engine:**
+   - Visit: https://earthengine.google.com/
+   - Click "Get Started" and sign up (free for research/education)
+
+2. **Authenticate:**
+```bash
+earthengine authenticate
+```
+This opens a browser for authentication. Follow the prompts and paste the token.
+
+3. **Verify setup:**
+```python
+import ee
+ee.Initialize()
+print("Earth Engine ready!")
 ```
 
 ### GDAL Installation
@@ -204,17 +293,32 @@ outer_prop = propylitic_detector.detect_outer_propylitic()
 
 ## Examples
 
-The `examples/` directory contains five detailed example scripts:
+The `examples/` directory contains detailed example scripts:
 
-1. **example1_basic_analysis.py** - Complete pipeline demonstration
-2. **example2_iron_oxide_detection.py** - Focused iron oxide mapping
-3. **example3_clay_alteration.py** - Argillic and phyllic discrimination
-4. **example4_porphyry_system.py** - Porphyry copper zonation mapping
-5. **example5_mineral_mapping.py** - Detailed hydroxyl and carbonate mineral mapping
+### Satellite Image Download Examples
+1. **download_landsat8.py** - Download Landsat-8 imagery for multiple locations
+2. **download_aster.py** - Download ASTER data optimized for clay minerals
+3. **download_sentinel2.py** - Download high-resolution Sentinel-2 imagery
+4. **download_and_analyze_porphyry.py** - **Complete workflow**: download → analyze → report
+
+### Analysis Examples
+5. **example1_basic_analysis.py** - Complete pipeline demonstration
+6. **example2_iron_oxide_detection.py** - Focused iron oxide mapping
+7. **example3_clay_alteration.py** - Argillic and phyllic discrimination
+8. **example4_porphyry_system.py** - Porphyry copper zonation mapping
+9. **example5_mineral_mapping.py** - Detailed hydroxyl and carbonate mineral mapping
 
 Run examples:
 ```bash
 cd examples
+
+# Download imagery first
+python download_landsat8.py
+
+# Or run complete workflow (download + analyze)
+python download_and_analyze_porphyry.py
+
+# Or analyze existing imagery
 python example1_basic_analysis.py
 ```
 
