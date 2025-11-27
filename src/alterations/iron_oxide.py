@@ -4,7 +4,7 @@ Detects hematite, goethite, and other ferric iron minerals
 """
 
 import numpy as np
-from typing import Dict, Optional, Tuple
+from typing import Dict
 import sys
 sys.path.append('..')
 from analysis.band_ratio import BandRatioAnalysis

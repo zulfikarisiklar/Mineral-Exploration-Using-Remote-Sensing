@@ -4,12 +4,11 @@ Detects calcite, dolomite, and other carbonate minerals
 """
 
 import numpy as np
-from typing import Dict, Optional
+from typing import Dict
 import sys
 sys.path.append('..')
 from analysis.band_ratio import BandRatioAnalysis
 from analysis.spectral_indices import SpectralIndices
-from analysis.pca_analysis import PCAAnalysis
 
 
 class CarbonateMineralDetector:
@@ -78,7 +77,7 @@ class CarbonateMineralDetector:
             calcite_map = swir2 / (swir1 + 1e-10)
 
         elif self.sensor == 'aster':
-            band6 = self.image[5]  # 2.205 μm
+            _band6 = self.image[5]  # 2.205 μm (reserved for future use)
             band7 = self.image[6]  # 2.260 μm
             band8 = self.image[7]  # 2.330 μm
             band9 = self.image[8]  # 2.395 μm

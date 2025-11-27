@@ -4,12 +4,11 @@ Detects biotite, K-feldspar, and potassic mineral assemblages
 """
 
 import numpy as np
-from typing import Dict, Optional
+from typing import Dict
 import sys
 sys.path.append('..')
 from analysis.band_ratio import BandRatioAnalysis
 from analysis.spectral_indices import SpectralIndices
-from analysis.pca_analysis import PCAAnalysis
 
 
 class PotassicDetector:
@@ -338,7 +337,7 @@ class PotassicDetector:
             Potassic alteration (distinguished from mafic rocks)
         """
         potassic = self.detect_composite_method()
-        biotite = self.detect_biotite()
+        _biotite = self.detect_biotite()  # Reserved for future enhancement
 
         # Mafic rocks have very low reflectance uniformly
         # Potassic alteration has more variability

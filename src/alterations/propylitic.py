@@ -94,7 +94,7 @@ class PropyliticDetector:
             Chlorite probability map
         """
         if self.sensor == 'landsat8':
-            green = self.image[2]
+            _green = self.image[2]  # Reserved for future use
             red = self.image[3]
             nir = self.image[4]
             swir1 = self.image[5]
@@ -105,7 +105,7 @@ class PropyliticDetector:
 
         elif self.sensor == 'aster':
             band3 = self.image[2]  # NIR
-            band4 = self.image[3]  # SWIR
+            _band4 = self.image[3]  # SWIR (reserved for future use)
             band5 = self.image[4]  # SWIR
             band6 = self.image[5]  # SWIR
 

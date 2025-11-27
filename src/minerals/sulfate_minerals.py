@@ -4,12 +4,11 @@ Detects gypsum, jarosite, alunite, and other sulfate minerals
 """
 
 import numpy as np
-from typing import Dict, Optional
+from typing import Dict
 import sys
 sys.path.append('..')
 from analysis.band_ratio import BandRatioAnalysis
 from analysis.spectral_indices import SpectralIndices
-from analysis.pca_analysis import PCAAnalysis
 
 
 class SulfateMineralDetector:
@@ -108,7 +107,7 @@ class SulfateMineralDetector:
             blue = self.image[1]
             green = self.image[2]
             red = self.image[3]
-            nir = self.image[4]
+            _nir = self.image[4]  # Reserved for future use
             swir1 = self.image[5]
             swir2 = self.image[6]
 
@@ -132,7 +131,7 @@ class SulfateMineralDetector:
         elif self.sensor == 'aster':
             band1 = self.image[0]  # Green
             band2 = self.image[1]  # Red
-            band3 = self.image[2]  # NIR
+            _band3 = self.image[2]  # NIR (reserved for future use)
             band5 = self.image[4]  # SWIR
             band6 = self.image[5]  # SWIR
 

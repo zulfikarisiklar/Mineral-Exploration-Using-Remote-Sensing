@@ -4,7 +4,7 @@ Various spectral indices for mineral and alteration detection
 """
 
 import numpy as np
-from typing import Dict, Optional
+from typing import Dict
 
 
 class SpectralIndices:
@@ -77,9 +77,9 @@ class SpectralIndices:
         if self.sensor == 'landsat8':
             red = self.image[3]
             blue = self.image[1]
-            green = self.image[2]
+            _green = self.image[2]  # Reserved for future use
             nir = self.image[4]
-            swir1 = self.image[5]
+            _swir1 = self.image[5]  # Reserved for future use
 
             # Classic iron oxide ratio
             results['io_ratio'] = red / (blue + self.epsilon)
@@ -93,7 +93,7 @@ class SpectralIndices:
         elif self.sensor == 'aster':
             band1 = self.image[0]
             band2 = self.image[1]
-            band4 = self.image[3]
+            _band4 = self.image[3]  # Reserved for future use
 
             results['io_ratio'] = band2 / (band1 + self.epsilon)
             results['foi'] = (band2 - band1) / (band2 + band1 + self.epsilon)
@@ -124,11 +124,11 @@ class SpectralIndices:
             results['ndci'] = (swir1 - swir2) / (swir1 + swir2 + self.epsilon)
 
         elif self.sensor == 'aster':
-            band4 = self.image[3]
+            _band4 = self.image[3]  # Reserved for future use
             band5 = self.image[4]
             band6 = self.image[5]
             band7 = self.image[6]
-            band8 = self.image[7]
+            _band8 = self.image[7]  # Reserved for future use
 
             # ASTER clay index
             results['clay_index'] = (band5 + band7) / band6
@@ -158,7 +158,7 @@ class SpectralIndices:
 
         elif self.sensor == 'aster':
             band3 = self.image[2]
-            band4 = self.image[3]
+            _band4 = self.image[3]  # Reserved for future use
             band5 = self.image[4]
 
             results['ferrous_index'] = band5 / band3
@@ -185,7 +185,7 @@ class SpectralIndices:
             results['nci'] = (swir2 - swir1) / (swir2 + swir1 + self.epsilon)
 
         elif self.sensor == 'aster':
-            band6 = self.image[5]
+            _band6 = self.image[5]  # Reserved for future use
             band7 = self.image[6]
             band8 = self.image[7]
             band9 = self.image[8]
@@ -258,7 +258,7 @@ class SpectralIndices:
         if self.sensor == 'landsat8':
             red = self.image[3]
             blue = self.image[1]
-            green = self.image[2]
+            _green = self.image[2]  # Reserved for future use
             nir = self.image[4]
             swir1 = self.image[5]
 

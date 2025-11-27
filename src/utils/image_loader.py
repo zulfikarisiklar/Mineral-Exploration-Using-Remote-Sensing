@@ -5,7 +5,7 @@ Handles loading and reading satellite imagery from various sources
 
 import numpy as np
 import rasterio
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 from pathlib import Path
 
 

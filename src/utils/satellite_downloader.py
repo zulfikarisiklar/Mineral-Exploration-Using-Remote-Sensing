@@ -5,10 +5,8 @@ Downloads satellite imagery from Google Earth Engine using geemap
 
 import ee
 import geemap
-import os
 from pathlib import Path
-from typing import List, Optional, Tuple, Dict
-from datetime import datetime
+from typing import Dict
 
 
 class SatelliteDownloader:
@@ -87,7 +85,7 @@ class SatelliteDownloader:
         Returns:
             Path to downloaded file
         """
-        print(f"Downloading Landsat-8 imagery...")
+        print("Downloading Landsat-8 imagery...")
         print(f"Date range: {start_date} to {end_date}")
         print(f"Max cloud cover: {cloud_cover_max}%")
 
@@ -157,7 +155,7 @@ class SatelliteDownloader:
         Returns:
             Path to downloaded file
         """
-        print(f"Downloading Landsat-7 imagery...")
+        print("Downloading Landsat-7 imagery...")
 
         collection = (ee.ImageCollection('LANDSAT/LE07/C02/T1_TOA')
                      .filterBounds(aoi)
@@ -211,9 +209,9 @@ class SatelliteDownloader:
         Returns:
             Path to downloaded file
         """
-        print(f"Downloading Landsat-5 TM imagery...")
+        print("Downloading Landsat-5 TM imagery...")
         print(f"Date range: {start_date} to {end_date}")
-        print(f"Note: Landsat-5 operated 1984-2013")
+        print("Note: Landsat-5 operated 1984-2013")
 
         # Load Landsat 5 Collection 2 Tier 1 TOA
         collection = (ee.ImageCollection('LANDSAT/LT05/C02/T1_TOA')
@@ -270,7 +268,7 @@ class SatelliteDownloader:
         Returns:
             Path to downloaded file
         """
-        print(f"Downloading Sentinel-2 imagery...")
+        print("Downloading Sentinel-2 imagery...")
 
         collection = (ee.ImageCollection('COPERNICUS/S2_SR_HARMONIZED')
                      .filterBounds(aoi)
@@ -323,7 +321,7 @@ class SatelliteDownloader:
         Returns:
             Path to downloaded file
         """
-        print(f"Downloading ASTER imagery...")
+        print("Downloading ASTER imagery...")
 
         # ASTER L1T Radiance
         collection = (ee.ImageCollection('ASTER/AST_L1T_003')

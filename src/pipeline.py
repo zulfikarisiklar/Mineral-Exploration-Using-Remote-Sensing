@@ -5,7 +5,7 @@ Orchestrates mineral detection workflow
 
 import numpy as np
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, Tuple
 import warnings
 warnings.filterwarnings('ignore')
 

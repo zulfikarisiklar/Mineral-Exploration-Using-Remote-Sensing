@@ -4,12 +4,11 @@ Detects quartz veins, silicification, and silica flooding
 """
 
 import numpy as np
-from typing import Dict, Optional
+from typing import Dict
 import sys
 sys.path.append('..')
 from analysis.band_ratio import BandRatioAnalysis
 from analysis.spectral_indices import SpectralIndices
-from analysis.pca_analysis import PCAAnalysis
 
 
 class SilicaMineralizationDetector:
@@ -96,11 +95,11 @@ class SilicaMineralizationDetector:
         """
         if self.sensor == 'aster' and self.image.shape[0] >= 14:
             # ASTER TIR bands (10-14)
-            band10 = self.image[9]   # 8.125-8.475 μm
+            _band10 = self.image[9]   # 8.125-8.475 μm (reserved for future use)
             band11 = self.image[10]  # 8.475-8.825 μm
             band12 = self.image[11]  # 8.925-9.275 μm
             band13 = self.image[12]  # 10.25-10.95 μm
-            band14 = self.image[13]  # 10.95-11.65 μm
+            _band14 = self.image[13]  # 10.95-11.65 μm (reserved for future use)
 
             # Quartz index using TIR bands
             # Band 13 / Band 12 emphasizes quartz emissivity minimum

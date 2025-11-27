@@ -5,10 +5,8 @@ Provides tools for visualizing analysis results and creating maps
 
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.colors as mcolors
 from matplotlib.patches import Rectangle
 from typing import Optional, Tuple, List
-import seaborn as sns
 
 
 class ResultVisualizer:

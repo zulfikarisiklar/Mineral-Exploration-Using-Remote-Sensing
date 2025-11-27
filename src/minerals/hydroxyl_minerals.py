@@ -4,12 +4,11 @@ Detects various OH-bearing minerals including micas, clays, and amphiboles
 """
 
 import numpy as np
-from typing import Dict, Optional, List
+from typing import Dict
 import sys
 sys.path.append('..')
 from analysis.band_ratio import BandRatioAnalysis
 from analysis.spectral_indices import SpectralIndices
-from analysis.pca_analysis import PCAAnalysis
 
 
 class HydroxylMineralDetector:
@@ -294,8 +293,8 @@ class HydroxylMineralDetector:
         """
         results = {}
 
-        # Get base OH detection
-        all_oh = self.detect_all_oh_minerals()
+        # Get base OH detection (reserved for future enhancement)
+        _all_oh = self.detect_all_oh_minerals()
 
         # Discriminate by absorption wavelength position
         if self.sensor == 'aster' and self.image.shape[0] >= 8:
